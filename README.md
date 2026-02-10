@@ -4,6 +4,7 @@ License: MIT License - Free to use and modify
 
 Automatically organize your messy folders! Sort files by type, date, or size with automatic renaming support.
 
+
 ## One-Click Organization
 
 Before vs After:
@@ -22,6 +23,7 @@ backup.zip           report.pdf
                           backup.zip
 `
 
+
 ## Quick Start
 
 `
@@ -35,6 +37,7 @@ Organize files by modification date, grouped by month
 Separate large and small files with numbers
 `
 
+
 ## Key Features
 
 | Feature       | Description                       | Use Case          |
@@ -42,6 +45,7 @@ Separate large and small files with numbers
 | Smart Sorting | By type/date/size/prefix          | Clean up Downloads|
 | Auto Rename   | Timestamps, numbers, keep original| Too many files?  |
 | Safe Mode     | Copy by default, conflict handling | Protect your files|
+
 
 ## Supported Formats
 
@@ -53,6 +57,7 @@ Separate large and small files with numbers
 | Audio      | mp3, wav, flac, aac, ogg, m4a, wma                  |
 | Archives   | zip, rar, 7z, tar, gz, bz2                          |
 | Code       | py, js, ts, html, java, cpp, go, rs                 |
+
 
 ## Advanced Usage
 
@@ -66,6 +71,7 @@ Organize files:
 - Conflict: auto-rename
 `
 
+
 ## File Size Categories
 
 | Category | Size Range   |
@@ -76,42 +82,53 @@ Organize files:
 | Large    | 10MB - 100MB |
 | Huge     | > 100MB      |
 
+
 ## Safety Features
 
 - Copy mode by default (original files preserved)
 - Confirmation before moving
 - Multiple conflict strategies (skip/overwrite/rename/ask)
 
+
 ## Examples
 
 ### Example 1: Sort by Type
+
 `
 images/
   photo1.jpg
   screenshot.gif
+
 documents/
   report.pdf
   notes.txt
+
 videos/
   video.mp4
 `
 
+
 ### Example 2: Sort by Date
+
 `
 2026/
   01/
     report.pdf
     notes.txt
+
   02/
     data.xlsx
 `
 
+
 ### Example 3: Rename with Timestamps
+
 `
 report_20260210_143022.pdf
 photo_20260210_143023.jpg
 data_20260210_143024.xlsx
 `
+
 
 ## Conflict Resolution
 
@@ -122,6 +139,7 @@ When target file exists:
 - Auto-rename - Add suffix _1, _2, _3...
 - Ask user - Prompt for each conflict
 
+
 ## Technical Details
 
 - Windows, Linux, macOS support
@@ -129,16 +147,18 @@ When target file exists:
 - Nested directory support
 - Max 1000 rename attempts
 
+
 ## Configuration Options
 
 | Parameter     | Description                   | Default         |
 |---------------|------------------------------|-----------------|
 | Source path   | Directory to organize        | -               |
 | Target path   | Output directory             | organized_files |
-| Sort method  | extension/size/date/prefix  | extension       |
+| Sort method   | extension/size/date/prefix  | extension       |
 | Rename method | timestamp/number/keep        | keep original   |
 | Action        | copy/move                   | copy            |
 | Conflict      | skip/overwrite/rename/ask    | skip            |
+
 
 ## Important Notes
 
@@ -146,6 +166,7 @@ When target file exists:
 2. Overwrite mode - Permanently replaces existing files
 3. Permissions - Ensure read/write access to directories
 4. Special characters - Auto-rename recommended
+
 
 ## Changelog
 
@@ -156,16 +177,17 @@ When target file exists:
 - 4 conflict strategies
 - 10 usage examples
 
+
 ## Contributing
 
 Issues and Pull Requests welcome!
+
 
 ## License
 
 MIT License - Free to use and modify
 
+
+## Author
+
 Created with Claude Code
-
----
-
-Tip: Replace the preview area above with your own screenshots.
