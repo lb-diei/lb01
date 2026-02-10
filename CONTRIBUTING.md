@@ -1,109 +1,109 @@
-# 贡献指南
+# Contributing Guide
 
-感谢您对文件整理技能项目的关注！我们欢迎各种形式的贡献�?
+Thank you for your interest in contributing to the File Organizer Skill project! We welcome all forms of contribution.
 
-## 如何贡献
+## How to Contribute
 
-### 报告问题
+### Report Issues
 
-如果您发现了 bug 或有功能建议，请�?
+If you find a bug or have a feature suggestion:
 
-1. 检�?[Issues](https://github.com/lb-diei/file-organizer-skill/issues) 确认问题未被报告
-2. 创建新的 Issue，包含：
-   - 清晰的标�?
-   - 详细的描�?
-   - 重现步骤
-   - 预期行为和实际行�?
-   - 环境（操作系统、Claude Code 版本等）
+1. Check [Issues](https://github.com/lb-diei/SFO/issues) to ensure it hasn't been reported
+2. Create a new Issue with:
+   - Clear title
+   - Detailed description
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Environment (OS, Claude Code version, etc.)
 
-### 提交代码
+### Submit Code
 
-1. Fork 本仓�?
-2. 创建您的特性分�?(`git checkout -b feature/AmazingFeature`)
-3. 提交您的更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启一�?Pull Request
+1. Fork this repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### 代码规范
+### Code Standards
 
-- 保持代码简洁清�?
-- 添加必要的注�?
-- 遵循现有的文件结�?
-- 更新相关文档
+- Keep code clean and simple
+- Add necessary comments
+- Follow existing file structure
+- Update relevant documentation
 
-### 技能文件格�?
+### Skill File Format
 
-技能文件（`skill.md`）应遵循以下结构�?
+The `skill.md` file should follow this structure:
 
 ```markdown
-# 技能名�?
+# Skill Name
 
-## 概述
-简要描述技能的功能
+## Overview
+Brief description of the skill
 
-## 触发条件
-何时使用此技�?
+## Trigger Conditions
+When to use this skill
 
-## 输入参数
-- 必需参数
-- 可选参�?
+## Input Parameters
+- Required parameters
+- Optional parameters
 
-## 执行步骤
-1. 步骤一
-2. 步骤�?
+## Execution Steps
+1. Step one
+2. Step two
 ...
 
-## 错误处理
-处理常见问题
+## Error Handling
+Handle common issues
 
-## 输出结果
-成功时的输出格式
+## Output Results
+Success output format
 
-## 使用示例
-提供具体示例
+## Usage Examples
+Provide specific examples
 ```
 
-### 文档贡献
+### Documentation Contributions
 
-- 修正错别�?
-- 改善文档清晰�?
-- 添加更多示例
-- 翻译文档
+- Fix typos
+- Improve clarity
+- Add more examples
+- Translate documentation
 
-## 开发设�?
+## Development Setup
 
-1. 克隆仓库
+1. Clone the repository:
 ```bash
-git clone https://github.com/lb-diei/file-organizer-skill.git
+git clone https://github.com/lb-diei/SFO.git
 ```
 
-2. 将技能文件复制到 Claude Code skills 目录
+2. Copy the skill file to Claude Code skills directory:
 ```bash
 cp skill.md ~/.claude/skills/
 ```
 
-3. �?Claude Code 中测试技�?
+3. Test the skill in Claude Code
 
-## 测试
+## Testing
 
-在提交代码前，请确保�?
+Before submitting code, ensure:
 
-- 功能在多种文件类型下正常工作
-- 边界情况得到正确处理
-- 错误信息清晰明确
-- 文档已更�?
+- Functionality works with multiple file types
+- Edge cases are handled correctly
+- Error messages are clear
+- Documentation is updated
 
-## 许可�?
+## License
 
-通过贡献代码，您同意您的贡献将使�?MIT License 许可�?
+By contributing code, you agree that your contributions will be licensed under the MIT License.
 
-## 联系方式
+## Contact
 
-如有疑问，请通过以下方式联系�?
+For questions:
 
-- 提交 Issue
-- 发送邮�?
+- Submit an Issue
+- Send an email
 
 ---
 
-再次感谢您的贡献�?
+Thank you for your contribution!

@@ -1,417 +1,221 @@
-﻿# 鏂囦欢鏁寸悊鎶€鑳?
+# File Organizer Skill
 
-## 姒傝堪
-甯姪鐢ㄦ埛鏁寸悊鍜屽垎绫绘枃浠讹紝鍒涘缓缁撴瀯鍖栫殑鏂囦欢澶癸紝鎸夋寚瀹氳鍒欏鍒躲€佸垎绫诲拰閲嶅懡鍚嶆枃浠讹紝鍚屾椂淇濈暀鍘熷鏂囦欢涓嶅彉銆?
+## Overview
+Help users organize and categorize files, create structured folders, and rename files while preserving original files.
 
-## 瑙﹀彂鏉′欢
-褰撶敤鎴烽渶瑕侊細
-- 鏁寸悊鏉備贡鐨勬枃浠剁洰褰?
-- 鎸夎鍒欐壒閲忛噸鍛藉悕鏂囦欢
-- 鎸夌被鍒紙绫诲瀷銆佸ぇ灏忋€佹棩鏈熺瓑锛夊垎绫绘枃浠?
-- 鍒涘缓鏂囦欢澶囦唤骞舵暣鐞?
+## Trigger Conditions
+When the user needs to:
+- Organize messy file directories
+- Categorize files by type, date, or size
+- Rename files with timestamps or numbers
+- Create file backups with organization
 
-## 杈撳叆鍙傛暟
-閫氳繃浜や簰寮忚闂幏鍙栦互涓嬩俊鎭細
+## Input Parameters
 
-### 蹇呴渶鍙傛暟
-- **婧愭枃浠跺す璺緞**锛氶渶瑕佹暣鐞嗙殑鏂囦欢鎵€鍦ㄧ洰褰?
-- **鐩爣鏂囦欢澶硅矾寰?*锛氭暣鐞嗗悗瀛樻斁鏂囦欢鐨勭洰褰曪紙榛樿涓哄綋鍓嶇洰褰曚笅鐨勬柊鏂囦欢澶癸級
+### Required Parameters
+- **Source Directory**: Folder to organize (from user input or current directory)
+- **Target Directory**: Output folder for organized files (default: "organized_files")
 
-### 鍙€夊弬鏁?
-- **鍒嗙被鏂瑰紡**锛?
-  - 鎸夋墿灞曞悕锛堝锛歫pg, pdf, docx锛?
-  - 鎸夋枃浠跺ぇ灏忥紙濡傦細<1MB, 1-10MB, >10MB锛?
-  - 鎸変慨鏀规棩鏈燂紙濡傦細2024-01, 2024-02锛?
-  - 鎸夋枃浠跺悕鍓嶇紑
-- **閲嶅懡鍚嶆柟寮?*锛?
-  - 杩藉姞鏃ユ湡鏃堕棿鎴?
-    - **鏃堕棿鎴虫牸寮?*锛歚YYYYMMDD_HHMMSS`锛堝锛歳eport_20240128_143022.txt锛?
-    - 鏃堕棿鏉ユ簮锛氫娇鐢ㄦ枃浠朵慨鏀规椂闂存垨褰撳墠鏃堕棿锛堣闂敤鎴烽€夋嫨锛?
-  - 杩藉姞搴忓彿锛堝锛歱hoto_001.jpg, photo_002.jpg锛?
-    - **搴忓彿瑙勫垯**锛氳闂敤鎴锋槸鍏ㄥ眬缂栧彿杩樻槸姣忎釜鍒嗙被鐙珛缂栧彿
-      - 鍏ㄥ眬缂栧彿锛氭墍鏈夋枃浠朵粠 001 寮€濮嬮€掑
-      - 鍒嗙被鐙珛缂栧彿锛氭瘡涓垎绫绘枃浠跺す鍐呬粠 001 寮€濮?
-  - 杩藉姞鏃ユ湡鏃堕棿鎴?+ 搴忓彿锛堝锛歳eport_20240128_143022_001.txt锛?
-  - 淇濇寔鍘熸枃浠跺悕
-- **澶嶅埗鎴栫Щ鍔?*锛?
-  - 澶嶅埗锛堜繚鐣欏師鏂囦欢锛?
-  - 绉诲姩锛堝垹闄ゅ師鏂囦欢锛岄粯璁ゅ鍒讹級
-- **鏂囦欢鍐茬獊澶勭悊**锛?
-  - 璺宠繃锛堥粯璁わ級
-  - 瑕嗙洊
-  - 鑷姩閲嶅懡鍚?
-  - 璇㈤棶鐢ㄦ埛
+### Optional Parameters
+- **Sort Method**:
+  - By extension (default)
+  - By file size (tiny/small/medium/large/huge)
+  - By modification date (monthly or yearly)
+  - By custom prefix
+  
+- **Rename Method**:
+  - Add timestamp: `filename_YYYYMMDD_HHMMSS.ext`
+  - Add sequence number: `filename_001.ext`
+  - Keep original name
+  
+- **Action**: copy (default) or move
+  
+- **Conflict Resolution**:
+  - skip (default)
+  - overwrite
+  - auto-rename
+  - ask user
 
-## 鎵ц姝ラ
+## Execution Steps
 
-### 1. 纭鍙傛暟
+### 1. Validate Parameters
 ```
-璇锋彁渚涗互涓嬩俊鎭細
-- 婧愭枃浠跺す璺緞锛歔浠庣敤鎴疯幏鍙栨垨浣跨敤褰撳墠鐩綍]
-- 鐩爣鏂囦欢澶瑰悕绉帮細[浠庣敤鎴疯幏鍙栨垨榛樿涓?"organized_files"]
-- 鍒嗙被鏂瑰紡锛歔浠庣敤鎴疯幏鍙栨垨榛樿涓烘墿灞曞悕]
-- 閲嶅懡鍚嶆柟寮忥細[浠庣敤鎴疯幏鍙栨垨榛樿涓轰笉閲嶅懡鍚峕
-  - 濡傛灉閫夋嫨搴忓彿锛岃闂細鍏ㄥ眬缂栧彿鎴栧垎绫荤嫭绔嬬紪鍙凤紵
-- 鎿嶄綔绫诲瀷锛歔浠庣敤鎴疯幏鍙栨垨榛樿涓哄鍒禲
-- 鏂囦欢鍐茬獊澶勭悊锛歔浠庣敤鎴疯幏鍙栨垨榛樿涓鸿烦杩嘳
+Input parameters:
+- Source directory: [from user or current directory]
+- Target directory: [from user or default "organized_files"]
+- Sort method: [from user or default "by extension"]
+- Rename method: [from user or default "keep original"]
+- Action: [from user or default "copy"]
+- Conflict handling: [from user or default "skip"]
 ```
 
-### 2. 楠岃瘉婧愮洰褰?
-浣跨敤 `ls` 鍛戒护妫€鏌ユ簮鐩綍鏄惁瀛樺湪鍙婂叾鍐呭锛?
+### 2. Validate Source Directory
+Use `ls` command to verify source directory exists:
 ```bash
-ls -la [婧愮洰褰曡矾寰刔
+ls -la [source directory]
 ```
 
-### 3. 鍒涘缓鐩爣缁撴瀯
-鏍规嵁閫夋嫨鐨勫垎绫绘柟寮忓垱寤哄瓙鏂囦欢澶癸細
+### 3. Create Target Structure
+Create subdirectories based on chosen sort method:
 ```bash
-mkdir -p [鐩爣鐩綍]/[鍒嗙被1]
-mkdir -p [鐩爣鐩綍]/[鍒嗙被2]
+mkdir -p [target]/[category1]
+mkdir -p [target]/[category2]
 ...
 ```
 
-### 4. 澶嶅埗鍜屾暣鐞嗘枃浠?
-閬嶅巻婧愮洰褰曚腑鐨勬墍鏈夋枃浠讹紝鏍规嵁鍒嗙被瑙勫垯鍜岄噸鍛藉悕瑙勫垯杩涜澶勭悊锛?
+### 4. Process and Organize Files
+Scan files and organize based on rules:
 
-**鎸夋墿灞曞悕鍒嗙被鏄犲皠琛細**
-- 鍥剧墖鏂囦欢 鈫?`images/`
-  - jpg, jpeg, png, gif, bmp, svg, webp, ico, tiff
-- 鏂囨。鏂囦欢 鈫?`documents/`
-  - pdf, doc, docx, txt, rtf, odt, xls, xlsx, ppt, pptx, csv
-- 瑙嗛鏂囦欢 鈫?`videos/`
-  - mp4, avi, mkv, mov, wmv, flv, webm, m4v
-- 闊抽鏂囦欢 鈫?`audio/`
-  - mp3, wav, flac, aac, ogg, m4a, wma
-- 鍘嬬缉鏂囦欢 鈫?`archives/`
-  - zip, rar, 7z, tar, gz, bz2
-- 浠ｇ爜鏂囦欢 鈫?`code/`
-  - py, js, ts, html, css, java, cpp, c, h, php, rb, go, rs, json, xml, yaml, sql
-- 鍏朵粬鏂囦欢 鈫?`others/`
-  - 涓嶅湪涓婅堪鍒楄〃涓殑鏂囦欢
+**By Extension:**
+- Images: `images/` - jpg, jpeg, png, gif, bmp, svg, webp, ico, tiff
+- Documents: `documents/` - pdf, doc, docx, txt, rtf, odt, xls, xlsx, ppt, pptx, csv
+- Videos: `videos/` - mp4, avi, mkv, mov, wmv, flv, webm, m4v
+- Audio: `audio/` - mp3, wav, flac, aac, ogg, m4a, wma
+- Archives: `archives/` - zip, rar, 7z, tar, gz, bz2
+- Code: `code/` - py, js, ts, html, css, java, cpp, c, h, php, rb, go, rs, json, xml, yaml, sql
+- Others: `others/` - files not in above categories
 
-**鎸夋枃浠跺ぇ灏忓垎绫绘槧灏勮〃锛?*
-- 鏋佸皬鏂囦欢 (<100KB) 鈫?`tiny/`
-- 灏忔枃浠?(100KB-1MB) 鈫?`small/`
-- 涓枃浠?(1MB-10MB) 鈫?`medium/`
-- 澶ф枃浠?(10MB-100MB) 鈫?`large/`
-- 瓒呭ぇ鏂囦欢 (>100MB) 鈫?`huge/`
+**By Size:**
+- Tiny (<100KB): `tiny/`
+- Small (100KB-1MB): `small/`
+- Medium (1MB-10MB): `medium/`
+- Large (10MB-100MB): `large/`
+- Huge (>100MB): `huge/`
 
-**鎸変慨鏀规棩鏈熷垎绫绘槧灏勮〃锛?*
-鎸夋湀鍒嗙被锛堥粯璁わ級锛?
-- 2024-01 鈫?`2024/01/`
-- 2024-02 鈫?`2024/02/`
-- ...
-- 骞?鏈堟牸寮忕殑宓屽鐩綍缁撴瀯
+**By Date:**
+- Monthly: `YYYY/MM/` format
+- Yearly: `YYYY/` format
+- Quarterly: `YYYY/Q1`, `YYYY/Q2`, etc.
 
-鎸夊勾鍒嗙被锛?
-- 2023 鈫?`2023/`
-- 2024 鈫?`2024/`
-- 2025 鈫?`2025/`
+### 5. Handle File Conflicts
+When target file exists:
 
-鎸夊搴﹀垎绫伙細
-- 2024-Q1 鈫?`2024/Q1/`
-- 2024-Q2 鈫?`2024/Q2/`
-- ...
-
-鎸夋棩鏈熺矑搴﹂€夐」锛?
-璇㈤棶鐢ㄦ埛閫夋嫨锛氬勾 / 鏈?/ 鏃?/ 瀛ｅ害
-
-**鎸夋枃浠跺悕鍓嶇紑鍒嗙被鏄犲皠琛細**
-鑷姩鎻愬彇鏂囦欢鍚嶅墠缂€锛屾寜鐩镐技鎬у垎缁勶細
-
-**瑙勫垯1锛氭寜鍒嗛殧绗︽彁鍙?*
-- `_` 涓嬪垝绾垮垎闅旓細`report_2024_final.pdf` 鈫?`report/`
-- `-` 杩炲瓧绗﹀垎闅旓細`project-alpha-v1.txt` 鈫?`project/`
-- `.` 鐐瑰垎闅旓細`image.thumbnail.jpg` 鈫?`image/`
-
-**瑙勫垯2锛氭寜棣栧瓧姣嶅垎缁?*
-- A 寮€澶?鈫?`A/`
-- B 寮€澶?鈫?`B/`
-- ...
-- Z 寮€澶?鈫?`Z/`
-- 鏁板瓧寮€澶?鈫?`0-9/`
-- 鍏朵粬瀛楃寮€澶?鈫?`others/`
-
-**瑙勫垯3锛氭寜鑷畾涔夊墠缂€**
-鐢ㄦ埛鎻愪緵鍓嶇紑鍒楄〃锛岃嚜鍔ㄥ尮閰嶏細
-- 鐢ㄦ埛杈撳叆鍓嶇紑锛歚photo`, `doc`, `music`
-- `photo_001.jpg` 鈫?`photo/`
-- `document.pdf` 鈫?`doc/`
-- `music_song.mp3` 鈫?`music/`
-- `unknown.txt` 鈫?`others/`
-
-**瀹炵幇閫昏緫锛堟寜鏂囦欢鍚嶅墠缂€锛夛細**
-```bash
-# 鎻愬彇鍓嶇紑锛堟寜涓嬪垝绾垮垎闅旓級
-extract_prefix() {
-    local filename="$1"
-    # 绉婚櫎鎵╁睍鍚?
-    local base="${filename%.*}"
-    # 鎸夌涓€涓笅鍒掔嚎鍒嗗壊
-    local prefix="${base%%_*}"
-    echo "$prefix"
-}
-
-# 浣跨敤绀轰緥
-filename="report_2024_final.pdf"
-prefix=$(extract_prefix "$filename")  # 杩斿洖 "report"
-鐩爣鐩綍="$prefix/"  # 鈫?"report/"
+**Option 1: Skip (default)**
+```
+Skip "images/photo_001.jpg" - file already exists
 ```
 
-### 5. 澶勭悊鏂囦欢
-瀵逛簬姣忎釜鏂囦欢锛?
-1. 纭畾鐩爣瀛愮洰褰?
-2. 鏍规嵁閲嶅懡鍚嶈鍒欑敓鎴愭柊鏂囦欢鍚?
-3. 浣跨敤 `cp`锛堝鍒讹級鎴?`mv`锛堢Щ鍔級鍛戒护鎿嶄綔鏂囦欢
-
-### 6. 楠岃瘉缁撴灉
-灞曠ず鏁寸悊鍚庣殑鐩綍缁撴瀯鍜屾搷浣滄憳瑕侊細
+**Option 2: Overwrite**
 ```
-鉁?宸叉暣鐞?15 涓枃浠?
-鉁?鍒涘缓浜?3 涓垎绫绘枃浠跺す
-鉁?澶嶅埗浜嗘枃浠跺埌 [鐩爣鐩綍]
+Overwrite "images/photo_001.jpg" - file replaced
 ```
 
-## 閿欒澶勭悊
-
-### 甯歌闂
-1. **婧愮洰褰曚笉瀛樺湪**锛氭彁绀虹敤鎴风‘璁よ矾寰勫苟閲嶆柊杈撳叆
-2. **鐩爣鐩綍宸插瓨鍦?*锛氳闂敤鎴锋槸鍚﹁鐩栨垨浣跨敤鏂板悕绉?
-3. **鏂囦欢鍚嶅啿绐?*锛氬湪閲嶅懡鍚嶆椂妫€鏌ョ洰鏍囨枃浠舵槸鍚﹀瓨鍦紝閬垮厤瑕嗙洊
-4. **鏉冮檺涓嶈冻**锛氬憡鐭ョ敤鎴锋潈闄愰棶棰橈紝寤鸿浣跨敤鏈夋潈闄愮殑鐩綍
-
-### 鏂囦欢鍚嶅啿绐佸鐞嗙瓥鐣?
-
-褰撶洰鏍囨枃浠跺凡瀛樺湪鏃讹紝閲囩敤浠ヤ笅绛栫暐锛?
-
-**閫夐」1锛氳烦杩囷紙榛樿锛?*
+**Option 3: Auto-rename**
 ```
-鐩爣鏂囦欢 "images/photo_001.jpg" 宸插瓨鍦紝璺宠繃
+Auto-rename "images/photo.jpg" to "images/photo_1.jpg"
+Auto-rename "images/photo_1.jpg" to "images/photo_2.jpg"
 ```
 
-**閫夐」2锛氳鐩?*
+**Option 4: Ask User**
 ```
-鐩爣鏂囦欢 "images/photo_001.jpg" 宸插瓨鍦紝灏嗚瑕嗙洊
-```
-
-**閫夐」3锛氳嚜鍔ㄩ噸鍛藉悕**
-```
-鐩爣鏂囦欢 "images/photo.jpg" 宸插瓨鍦?
-鑷姩閲嶅懡鍚嶄负 "images/photo_1.jpg"
-```
-
-**鑷姩閲嶅懡鍚嶈鍒欙細**
-1. 灏濊瘯娣诲姞鍚庣紑 `_1`, `_2`, `_3`... 鐩村埌鎵惧埌鍙敤鏂囦欢鍚?
-2. 绀轰緥锛歚photo.jpg` 鈫?`photo_1.jpg` 鈫?`photo_2.jpg` 鈫?...
-3. 濡傛灉鍘熸枃浠跺凡鏈夋暟瀛楀悗缂€锛屽垯閫掑璇ユ暟瀛?
-   - `photo_001.jpg` 鈫?`photo_002.jpg`
-   - `photo_1.jpg` 鈫?`photo_2.jpg`
-4. 鏈€澶у皾璇曟鏁帮細1000锛堣秴杩囧垯鎶ラ敊锛?
-
-**瀹炵幇閫昏緫锛?*
-```bash
-# 鐢熸垚鍞竴鏂囦欢鍚?
-generate_unique_name() {
-    local base_name="$1"
-    local extension="$2"
-    local counter=1
-
-    while [ -f "$鐩爣璺緞/$base_name$extension" ]; do
-        base_name="${鍘熸枃浠跺悕%.*}_${counter}"
-        ((counter++))
-        if [ $counter -gt 1000 ]; then
-            echo "閿欒锛氭棤娉曠敓鎴愬敮涓€鏂囦欢鍚嶏紙宸插皾璇?000娆★級"
-            return 1
-        fi
-    done
-
-    echo "${base_name}${extension}"
-}
+File "images/photo.jpg" already exists.
+Choose:
+1) Skip
+2) Overwrite
+3) Auto-rename
+4) Ask for each
 ```
 
-**閫夐」4锛氳闂敤鎴?*
+### 6. Verify Results
+Display summary:
 ```
-鐩爣鏂囦欢 "images/photo.jpg" 宸插瓨鍦?
-璇烽€夋嫨锛?
-1) 璺宠繃
-2) 瑕嗙洊
-3) 鑷姩閲嶅懡鍚嶄负 "photo_1.jpg"
+File organization complete!
+
+Source: /path/to/source
+Target: /path/to/target
+
+Results:
+- 15 files organized
+- 3 subdirectories created
+- Files copied to [target directory]
 ```
 
-**瀹炵幇閫昏緫锛?*
-```bash
-# 妫€鏌ョ洰鏍囨枃浠舵槸鍚﹀瓨鍦?
-if [ -f "$鐩爣璺緞/$鏂版枃浠跺悕" ]; then
-    case $鍐茬獊澶勭悊鏂瑰紡 in
-        "璺宠繃") 璺宠繃璇ユ枃浠?;;
-        "瑕嗙洊") 瑕嗙洊璇ユ枃浠?;;
-        "鑷姩閲嶅懡鍚?) 鐢熸垚鏂版枃浠跺悕 ;;
-        "璇㈤棶") 璇㈤棶鐢ㄦ埛閫夋嫨 ;;
-    esac
-fi
+## Error Handling
+
+### Common Issues
+1. **Source directory doesn't exist**: Confirm path and re-enter
+2. **Target directory already exists**: Ask user whether to overwrite or use new name
+3. **Filename conflicts**: Use selected conflict resolution method
+4. **Permission issues**: Inform user of permission problems
+
+### Filename Conflict Resolution Logic
+```python
+def handle_conflict(target_path, method):
+    if method == "skip":
+        return None  # Skip this file
+    elif method == "overwrite":
+        return target_path  # Replace existing file
+    elif method == "auto_rename":
+        counter = 1
+        base = get_base_name(target_path)
+        ext = get_extension(target_path)
+        while os.path.exists(target_path):
+            target_path = f"{base}_{counter}{ext}"
+            counter += 1
+            if counter > 1000:
+                raise Error("Cannot generate unique filename after 1000 attempts")
+        return target_path
+    elif method == "ask":
+        return ask_user(target_path)  # Prompt user for action
 ```
 
-## 杈撳嚭缁撴灉
+## Output Results
 
-### 鎴愬姛鏃?
-- 鏄剧ず鏁寸悊鍓嶅悗鐨勭洰褰曞姣?
-- 鍒楀嚭鎵€鏈夊垎绫绘枃浠跺す鍙婂叾鍖呭惈鐨勬枃浠舵暟閲?
-- 鎻愪緵鎿嶄綔鎽樿缁熻
+### Success
+- Display organized directory structure
+- List all created subdirectories and file counts
+- Provide operation summary
 
-### 绀轰緥杈撳嚭
+### Example Output
 ```
-鏂囦欢鏁寸悊瀹屾垚锛?
+File organization complete!
 
-婧愮洰褰曪細/path/to/source
-鐩爣鐩綍锛?path/to/target
+Source: /path/to/source
+Target: organized_files
 
-鏁寸悊缁撴灉锛?
-鈹溾攢鈹€ images (5 涓枃浠?
-鈹?  鈹溾攢鈹€ photo_001.jpg
-鈹?  鈹溾攢鈹€ photo_002.jpg
-鈹?  鈹斺攢鈹€ ...
-鈹溾攢鈹€ documents (8 涓枃浠?
-鈹?  鈹溾攢鈹€ report.pdf
-鈹?  鈹斺攢鈹€ ...
-鈹斺攢鈹€ others (2 涓枃浠?
+Results:
+- 15 files organized
+- 3 subdirectories created
+- Files copied to organized_files
 
-鎬昏锛?5 涓枃浠跺凡澶嶅埗鍒?3 涓垎绫绘枃浠跺す
+Breakdown:
+- 5 files -> images/
+- 8 files -> documents/
+- 2 files -> others/
 ```
 
-## 浣跨敤绀轰緥
+## Usage Examples
 
-### 绀轰緥1锛氭寜鎵╁睍鍚嶅垎绫伙紙淇濇寔鍘熸枃浠跺悕锛?
+### Example 1: Organize by Extension (Keep Original Names)
 ```
-鐢ㄦ埛锛氬府鎴戞暣鐞嗚繖涓枃浠跺す閲岀殑鏂囦欢锛屾寜绫诲瀷鍒嗙被
-鎵ц锛?
-1. 鍒涘缓 images/, documents/, videos/, audio/, archives/, code/, others/ 鏂囦欢澶?
-2. 灏?.jpg/.png/.gif 澶嶅埗鍒?images/
-3. 灏?.pdf/.docx/.txt 澶嶅埗鍒?documents/
-4. 灏?.mp4/.avi 澶嶅埗鍒?videos/
-5. 灏?.mp3/.wav 澶嶅埗鍒?audio/
-6. 灏?.zip/.rar 澶嶅埗鍒?archives/
-7. 灏?.py/.js/.html 澶嶅埗鍒?code/
-8. 鍏朵綑鏂囦欢澶嶅埗鍒?others/
-```
-
-### 绀轰緥2锛氭寜淇敼鏃ユ湡鍒嗙被
-```
-鐢ㄦ埛锛氭寜淇敼鏃ユ湡鏁寸悊鏂囦欢锛屾寜鏈堝垎绫?
-鎵ц锛?
-1. 妫€鏌ユ枃浠朵慨鏀规椂闂?
-2. 鍒涘缓宓屽鐩綍锛?023/12/, 2024/01/, 2024/02/...
-3. 灏嗘枃浠跺鍒跺埌瀵瑰簲骞?鏈堟枃浠跺す锛?
-   - report.pdf (淇敼浜?2024-01-15) 鈫?2024/01/
-   - photo.jpg (淇敼浜?2023-12-20) 鈫?2023/12/
-   - data.txt (淇敼浜?2024-02-01) 鈫?2024/02/
+User: Organize files in this folder by extension
+Execution:
+1. Create images/, documents/, videos/, audio/, archives/, code/, others/
+2. Copy .jpg/.png/.gif -> images/
+3. Copy .pdf/.docx/.txt -> documents/
+4. Copy .mp4/.avi -> videos/
+5. Copy .mp3/.wav -> audio/
+6. Copy .zip/.rar -> archives/
+7. Copy .py/.js/.html -> code/
+8. Copy remaining -> others/
 ```
 
-### 绀轰緥3锛氭寜鏃ユ湡鏃堕棿鎴抽噸鍛藉悕锛堜娇鐢ㄦ枃浠朵慨鏀规椂闂达級
+### Example 2: Organize by Date (Monthly)
 ```
-鐢ㄦ埛锛氭暣鐞嗘枃浠跺苟鍔犱笂鏂囦欢淇敼鏃堕棿鎴?
-绯荤粺锛氳闂娇鐢ㄦ枃浠朵慨鏀规椂闂磋繕鏄綋鍓嶆椂闂达紵
-鐢ㄦ埛锛氭枃浠朵慨鏀规椂闂?
-鎵ц锛?
-1. 鑾峰彇鏂囦欢淇敼鏃堕棿锛歳eport.pdf (2024-01-15 14:30:22)
-2. 鍒涘缓 organized_files 鏂囦欢澶?
-3. 閲嶅懡鍚嶄负锛歳eport_20240115_143022.pdf
-```
-
-### 绀轰緥4锛氭寜澶у皬鍒嗙被骞堕噸鍛藉悕锛堝垎绫荤嫭绔嬬紪鍙凤級
-```
-鐢ㄦ埛锛氭妸澶ф枃浠跺拰灏忔枃浠跺垎寮€锛屽苟鍔犱笂搴忓彿
-绯荤粺锛氳闂娇鐢ㄥ叏灞€缂栧彿杩樻槸鍒嗙被鐙珛缂栧彿锛?
-鐢ㄦ埛锛氬垎绫荤嫭绔嬬紪鍙?
-鎵ц锛?
-1. 鎸夋枃浠跺ぇ灏忓垱寤哄垎绫绘枃浠跺す锛歵iny/, small/, medium/, large/, huge/
-2. 澶嶅埗鏂囦欢鍒板搴斿垎绫?
-3. 姣忎釜鍒嗙被鍐呯嫭绔嬬紪鍙凤細
-   - tiny/file_001.txt
-   - tiny/file_002.json
-   - small/file_001.pdf
-   - large/file_001.zip
+User: Organize files by modification date, grouped by month
+Execution:
+1. Check file modification dates
+2. Create 2024/01/, 2024/02/, etc.
+3. Copy files:
+   - report.pdf (modified 2024-01-15) -> 2024/01/
+   - photo.jpg (modified 2023-12-20) -> 2023/12/
 ```
 
-### 绀轰緥5锛氭寜鏂囦欢鍚嶅墠缂€鍒嗙被锛堜笅鍒掔嚎鍒嗛殧锛?
+### Example 3: Rename with Timestamps
 ```
-鐢ㄦ埛锛氭寜鏂囦欢鍚嶅墠缂€鍒嗙被
-鎵ц锛?
-1. 鎻愬彇鏂囦欢鍚嶅墠缂€锛堟寜涓嬪垝绾垮垎闅旓級
-2. 鍒涘缓瀵瑰簲鍓嶇紑鏂囦欢澶?
-3. 澶嶅埗鏂囦欢锛?
-   - photo_001.jpg 鈫?photo/
-   - photo_002.jpg 鈫?photo/
-   - document.pdf 鈫?document/
-   - report_2024.pdf 鈫?report/
-   - data_backup.zip 鈫?data/
-```
-
-### 绀轰緥6锛氭寜鏂囦欢鍚嶉瀛楁瘝鍒嗙被
-```
-鐢ㄦ埛锛氭寜鏂囦欢鍚嶉瀛楁瘝 A-Z 鍒嗙被
-鎵ц锛?
-1. 鎸夐瀛楁瘝鍒涘缓鏂囦欢澶癸細A/, B/, C/, ... , Z/, 0-9/, others/
-2. 澶嶅埗鏂囦欢锛?
-   - apple.txt 鈫?A/
-   - banana.pdf 鈫?B/
-   - 123data.json 鈫?0-9/
-   - _hidden.txt 鈫?others/
-```
-
-### 绀轰緥7锛氭棩鏈熸椂闂存埑 + 搴忓彿閲嶅懡鍚?
-```
-鐢ㄦ埛锛氭暣鐞嗘枃浠讹紝閲嶅懡鍚嶆牸寮忥細鍘熸枃浠跺悕_鏃堕棿鎴砡搴忓彿
-鎵ц锛?
-1. 澶嶅埗鏂囦欢骞堕噸鍛藉悕锛?
-   - report.pdf 鈫?report_20240128_143022_001.pdf
-   - data.xlsx 鈫?data_20240128_143023_002.xlsx
-   - photo.jpg 鈫?photo_20240128_143024_003.jpg
-```
-
-### 绀轰緥8锛氭枃浠跺啿绐佸鐞嗭紙鑷姩閲嶅懡鍚嶏紝閫掑宸叉湁鏁板瓧锛?
-```
-鐢ㄦ埛锛氭暣鐞嗘枃浠讹紝鍐茬獊鏃惰嚜鍔ㄩ噸鍛藉悕
-婧愭枃浠讹細
-- photo.jpg
-- photo_1.jpg
-- photo_2.jpg
-- photo_003.jpg
-
-鎵ц锛?
-1. 妫€娴嬬洰鏍囨枃浠跺瓨鍦ㄦ儏鍐?
-2. 鐢熸垚鍞竴鍚嶇О锛?
-   - photo.jpg 鈫?photo_4.jpg (璺宠繃 1, 2, 003)
-   - photo_1.jpg 鈫?photo_5.jpg
-   - photo_2.jpg 鈫?photo_6.jpg
-   - photo_003.jpg 鈫?photo_007.jpg (琛ラ浂瀵归綈)
-```
-
-### 绀轰緥9锛氱Щ鍔ㄦā寮?+ 瑕嗙洊
-```
-鐢ㄦ埛锛氭暣鐞嗗埌 backup锛屼娇鐢ㄧЩ鍔ㄦā寮忥紝閬囧埌鍐茬獊鐩存帴瑕嗙洊
-鎵ц锛?
-鈿?璀﹀憡锛氬凡閫夋嫨"绉诲姩+瑕嗙洊"妯″紡锛岄噸澶嶆枃浠跺皢琚案涔呭垹闄わ紒
-璇风‘璁わ細y/n
-鐢ㄦ埛锛歽
-
-1. 浣跨敤 mv 鍛戒护绉诲姩鏂囦欢
-2. 濡傛灉鐩爣鏂囦欢宸插瓨鍦紝鐩存帴瑕嗙洊
-3. 鍘熸枃浠跺皢琚垹闄?
-
-缁撴灉锛?
-鉁?report.pdf 鈫?backup/documents/report.pdf锛堝凡瑕嗙洊锛?
-鉁?data.xlsx 鈫?backup/documents/data.xlsx
-```
-
-### 绀轰緥10锛氭寜瀛ｅ害鍒嗙被
-```
-鐢ㄦ埛锛氭寜瀛ｅ害鏁寸悊鏂囦欢
-鎵ц锛?
-1. 妫€鏌ユ枃浠朵慨鏀规椂闂?
-2. 鍒涘缓鏂囦欢澶癸細2024/Q1/, 2024/Q2/, 2024/Q3/, 2024/Q4/
-3. 澶嶅埗鏂囦欢锛?
-   - report.pdf (2024-02-15) 鈫?2024/Q1/
-   - data.xlsx (2024-05-20) 鈫?2024/Q2/
-   - photo.jpg (2024-08-10) 鈫?2024/Q3/
-   - backup.zip (2024-11-30) 鈫?2024/Q4/
+User: Organize files and add modification timestamps
+Execution:
+1. Get file modification time: report.pdf (2024-01-15 14:30:22)
+2. Create organized_files directory
+3. Rename to: report_20240115_143022.pdf
 ```

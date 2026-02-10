@@ -1,4 +1,4 @@
-# Smart File Organizer
+# Smart File Organizer (SFO)
 
 License: MIT License - Free to use and modify
 
